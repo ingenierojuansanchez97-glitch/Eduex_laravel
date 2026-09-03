@@ -14,8 +14,8 @@ COPY . /app
 # Instalar dependencias de PHP
 RUN composer install --no-dev --optimize-autoloader
 
-# Ejecutar la aplicación exponiendo el puerto dinámico de Render
-CMD php artisan serve --host=0.0.0.0 --port=${PORT:-10000}
+# Dar permisos de ejecución al script entrypoint en /app
+RUN chmod +x /app/entrypoint.sh
 
-RUN chmod +x /var/www/html/entrypoint.sh
-ENTRYPOINT ["/var/www/html/entrypoint.sh"]
+# Definir el entrypoint que ejecutará las migraciones y luego iniciará el servidor
+ENTRYPOINT ["/app/entrypoint.sh"]
