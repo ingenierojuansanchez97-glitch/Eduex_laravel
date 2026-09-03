@@ -16,3 +16,6 @@ RUN composer install --no-dev --optimize-autoloader
 
 # Ejecutar la aplicación exponiendo el puerto dinámico de Render
 CMD php artisan serve --host=0.0.0.0 --port=${PORT:-10000}
+
+RUN chmod +x /var/www/html/entrypoint.sh
+ENTRYPOINT ["/var/www/html/entrypoint.sh"]
